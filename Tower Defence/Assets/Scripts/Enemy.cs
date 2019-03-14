@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour {
 	[SerializeField]
 	private Image hpImage;
 
+	[SerializeField]
+	private Transform camera;
 
 
 	private Quaternion startRotation;
@@ -46,7 +48,8 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Update () {
-        //transform.LookAt(targetPoint.position);
+        transform.LookAt(targetPoint.position);
+		//hpImage.transform.LookAt(camera.position);
         this.transform.position = Vector3.MoveTowards(this.transform.position, targetPoint.position, Time.deltaTime * speed);
         if(Vector3.Distance(transform.position, targetPoint.position) < 0.5f){
            GetNextPoint();

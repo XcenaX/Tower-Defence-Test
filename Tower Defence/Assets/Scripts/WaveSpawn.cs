@@ -7,7 +7,8 @@ public class WaveSpawn : MonoBehaviour {
 	[SerializeField]
 	private float timeBetweenWaves;
     [SerializeField]
-    private Transform enemyPrefab;
+    private Transform[] enemyPrefabs;
+	private int currentEnemy = 0;
     [SerializeField]
     private float enemyInterval;  
     [SerializeField] 
@@ -44,10 +45,29 @@ public class WaveSpawn : MonoBehaviour {
 		}
 		timeBetweenWaves+=2;
 		PlayerStats.CurrentWave++;
-		enemyPrefab.GetComponent<Enemy>().SetStartLives(1);
+		foreach(var enemy in enemyPrefabs){
+			enemy.GetComponent<Enemy>().SetStartLives(2);
+		}
+		
+		Shuffle(enemyPrefabs);
+		currentEnemy++;
+		if(currentEnemy == enemyPrefabs.Length)currentEnemy = 0;
 	}
 
 	private void SpawnEnemy(){
-		Instantiate(enemyPrefab,spawnPoint.position, spawnPoint.rotation);
+		Instantiate(enemyPrefabs[currentEnemy],spawnPoint.position, spawnPoint.rotation);
 	}
+
+
+	void Shuffle(Transform[] texts)
+    {
+        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+        for (int t = 0; t < texts.Length; t++ )
+        {
+            var tmp = texts[t];
+            int r = Random.Range(t, texts.Length);
+            texts[t] = texts[r];
+            texts[r] = tmp;
+        }
+    }
 }

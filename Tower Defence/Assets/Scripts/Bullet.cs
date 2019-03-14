@@ -9,6 +9,10 @@ private Transform target;
 private float speed;
 
 private int damage = 5;
+
+public void SetDamage(int damage){
+	this.damage += damage;
+}
 		
 	void Update () {
 		if(target == null){

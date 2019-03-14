@@ -7,6 +7,11 @@ public class BuildManager : MonoBehaviour
 
     public static BuildManager instance;
     private TurretPriceList turretToBuild;    
+    private Node selectedNode;
+
+    [SerializeField]
+    private NodeUI nodeUI;
+
     public TurretPriceList GetTurretToBuild(){
         return turretToBuild;
     }
@@ -20,10 +25,26 @@ public class BuildManager : MonoBehaviour
 
     public void SetTurretToBuild(TurretPriceList turret){
         turretToBuild = turret;
+        nodeUI.Hide();
     }
  
     void Start()
     {
         
-    }        
+    }   
+
+    public void DiselectNode(){
+        selectedNode = null;
+        nodeUI.Hide();
+    }
+
+    public void SelectNode(Node node){
+        if(selectedNode == node){
+            DiselectNode();
+            return;
+        }
+        selectedNode = node;
+        turretToBuild = null;
+        nodeUI.SetTarget(node);
+    }     
 }

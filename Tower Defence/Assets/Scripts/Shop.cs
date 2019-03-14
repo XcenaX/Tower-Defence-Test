@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class TurretPriceList{
-    public GameObject prefab;
+    public GameObject[] upgradePrefabs;
     // public GameObject upgradedPrefab; типа если хочешь модель менять при апргрейде
     public int cost;
     public int upgradeCost;
